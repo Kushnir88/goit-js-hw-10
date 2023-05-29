@@ -1,4 +1,5 @@
 import { fetchBreeds, fetchCatByBreed } from './cat-api.js';
+import Notiflix from 'notiflix';
 
 const breedSelect = document.getElementById('breed-select');
 const catInfo = document.querySelector('.cat-info');
@@ -50,8 +51,10 @@ function handleBreedSelect() {
 }
 
 function showError() {
-  error.style.display = 'block';
+  Notiflix.Notify.Failure('An error occurred. Please try again.');
 }
+
+
 
 loader.style.display = 'block';
 populateBreeds();
