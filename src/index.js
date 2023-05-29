@@ -1,12 +1,6 @@
-import Notiflix from 'notiflix';
-import SlimSelect from 'slim-select';
 import { fetchBreeds, fetchCatByBreed } from './cat-api.js';
+import Notiflix from 'notiflix';
 
-document.addEventListener('DOMContentLoaded', function() {
-  new SlimSelect({
-    select: '#breed-select'
-  });
-});
 
 const breedSelect = document.getElementById('breed-select');
 const catInfo = document.querySelector('.cat-info');
@@ -60,6 +54,8 @@ function handleBreedSelect() {
 function showError() {
   Notiflix.Notify.Failure('An error occurred. Please try again.');
 }
+
+
 
 loader.style.display = 'block';
 populateBreeds();

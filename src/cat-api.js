@@ -8,12 +8,7 @@ export function fetchBreeds() {
       'x-api-key': API_KEY
     }
   })
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Failed to fetch breeds');
-      }
-      return response.json();
-    })
+    .then(response => response.json())
     .then(data => data.map(breed => ({ id: breed.id, name: breed.name })))
     .catch(error => {
       console.error('Error fetching breeds:', error);
@@ -29,18 +24,8 @@ export function fetchCatByBreed(breedId) {
       'x-api-key': API_KEY
     }
   })
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Failed to fetch cat');
-      }
-      return response.json();
-    })
-    .then(data => {
-      if (data.length === 0) {
-        throw new Error('No cat found for the selected breed');
-      }
-      return data[0];
-    })
+    .then(response => response.json())
+    .then(data => data[0])
     .catch(error => {
       console.error('Error fetching cat:', error);
       throw error;
