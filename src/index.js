@@ -34,9 +34,10 @@ function handleBreedSelect() {
 
   fetchCatByBreed(breedId)
     .then(cat => {
-      catBreed.textContent = cat.breeds[0].name;
-      catDescription.textContent = cat.breeds[0].description;
-      catTemperament.textContent = `Temperament: ${cat.breeds[0].temperament}`;
+      const [firstBreed] = cat.breeds;
+      catBreed.textContent = firstBreed.name;
+      catDescription.textContent = firstBreed.description;
+      catTemperament.textContent = `Temperament: ${firstBreed.temperament}`;
       catImage.src = cat.url;
 
       catInfo.style.display = 'block';
