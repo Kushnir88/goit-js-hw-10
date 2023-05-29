@@ -1,146 +1,141 @@
-.container {
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 20px;
-}
-
-.loader,
-.error {
-  display: none;
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-.form {
-  margin-bottom: 20px;
-}
-
-.cat-info {
-  display: none;
-  text-align: center;
-}
-
-#cat-image {
-  max-width: 400px;
-  margin-bottom: 10px;
-}
-
-#cat-details {
-  margin-bottom: 20px;
-}
-.loader {
-  display: block;
-  position: relative;
-  height: 32px;
-  width: 200px;
-  background: #fff;
-  border: 2px solid #fff;
-  color: red;
-  overflow: hidden;
-}
-
-.loader::before {
-  content: '';
-  background: red;
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 0;
-  height: 100%;
-  animation: loading 10s linear infinite;
-}
-
-.loader:after {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  text-align: center;
-  font-size: 24px;
-  line-height: 32px;
-  color: rgb(0, 255, 255);
-  mix-blend-mode: difference;
-  animation: percentage 10s linear infinite;
-}
-
-@keyframes loading {
-  0% {
-    width: 0
+  .loader,
+  .error {
+    display: none;
+    text-align: center;
+    margin-bottom: 20px;
   }
 
-  100% {
-    width: 100%
-  }
-}
-
-@keyframes percentage {
-  0% {
-    content: "0%"
+  .form {
+    margin-bottom: 20px;
   }
 
-  5% {
-    content: "5%"
+  .cat-info {
+    display: none;
+    text-align: center;
   }
 
-  10% {
-    content: "10%"
+  #cat-image {
+    max-width: 400px;
+    margin-bottom: 10px;
   }
 
-  20% {
-    content: "20%"
+  #cat-details {
+    margin-bottom: 20px;
   }
 
-  30% {
-    content: "30%"
+  .loader {
+    display: block;
+    position: relative;
+    height: 32px;
+    width: 200px;
+    background: #fff;
+    border: 2px solid #fff;
+    color: red;
+    overflow: hidden;
   }
 
-  40% {
-    content: "40%"
+  .loader::before {
+    content: "";
+    background: red;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 0;
+    height: 100%;
+    animation: loading 10s linear infinite;
   }
 
-  50% {
-    content: "50%"
+  .loader:after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    font-size: 24px;
+    line-height: 32px;
+    color: rgb(0, 255, 255);
+    mix-blend-mode: difference;
+    animation: percentage 10s linear infinite;
   }
 
-  60% {
-    content: "60%"
+  @keyframes loading {
+    0% {
+      width: 0;
+    }
+
+    100% {
+      width: 100%;
+    }
   }
 
-  70% {
-    content: "70%"
-  }
+  @keyframes percentage {
+    0% {
+      content: "0%";
+    }
 
-  80% {
-    content: "80%"
-  }
+    5% {
+      content: "5%";
+    }
 
-  90% {
-    content: "90%"
-  }
+    10% {
+      content: "10%";
+    }
 
-  95% {
-    content: "95%"
-  }
+    20% {
+      content: "20%";
+    }
 
-  96% {
-    content: "96%"
-  }
+    30% {
+      content: "30%";
+    }
 
-  97% {
-    content: "97%"
-  }
+    40% {
+      content: "40%";
+    }
 
-  98% {
-    content: "98%"
-  }
+    50% {
+      content: "50%";
+    }
 
-  99% {
-    content: "99%"
-  }
+    60% {
+      content: "60%";
+    }
 
-  100% {
-    content: "100%"
+    70% {
+      content: "70%";
+    }
+
+    80% {
+      content: "80%";
+    }
+
+    90% {
+      content: "90%";
+    }
+
+    95% {
+      content: "95%";
+    }
+
+    96% {
+      content: "96%";
+    }
+
+    97% {
+      content: "97%";
+    }
+
+    98% {
+      content: "98%";
+    }
+
+    99% {
+      content: "99%";
+    }
+
+    100% {
+      content: "100%";
+    }
   }
-}
