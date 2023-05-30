@@ -1,61 +1,98 @@
 import { fetchBreeds, fetchCatByBreed } from './cat-api.js';
 import Notiflix from 'notiflix';
 
-
-const breedSelect = document.getElementById('breed-select');
+const select = document.querySelector('.breed-select');
 const catInfo = document.querySelector('.cat-info');
-const catImage = document.getElementById('cat-image');
-const catBreed = document.getElementById('cat-breed');
-const catDescription = document.getElementById('cat-description');
-const catTemperament = document.getElementById('cat-temperament');
-const loader = document.querySelector('.loader');
+const load = document.querySelector('.loader');
 const error = document.querySelector('.error');
 
-function populateBreeds() {
+function errorN() {
+  error.style.display = 'none';
+}
+
+function showLoader() {
+  load.style.display = 'block';
+}
+
+function hideLoader() {
+  load.style.display = 'none';
+}
+
+function hideElements() {
+  select.style.display = 'none';
+  catInfo.style.display = 'none';
+}
+
+function showElements() {
+  select.style.display = 'block';
+  catInfo.style.display = 'block';
+}
+
+function fetchBreedsData() {
   fetchBreeds()
-    .then(breeds => {
-      breeds.forEach(breed => {
-        const option = document.createElement('option');
-        option.value = breed.id;
-        option.textContent = breed.name;
-        breedSelect.appendChild(option);
-      });
-
-      breedSelect.addEventListener('change', handleBreedSelect);
-      breedSelect.removeAttribute('disabled');
-      loader.style.display = 'none';
+    .then(data => {
+      const markup = createMarkup(data);
+      select.innerHTML = markup;
     })
-    .catch(() => {
-      showError();
-      loader.style.display = 'none';
+    .catch(err => {
+      hideElements();
+      Notiflix.Report.failure('Oops! Something went wrong! Try reloading the page!');
     });
 }
 
-function handleBreedSelect() {
-  const breedId = breedSelect.value;
+function fetchCatBySelectedBreed() {
+  const selectedOption = select.options[select.selectedIndex];
+  const selectedValue = selectedOption.value;
 
-  fetchCatByBreed(breedId)
-    .then(cat => {
-      const firstBreed = cat.breeds[0];
-      catBreed.textContent = firstBreed.name;
-      catDescription.textContent = firstBreed.description;
-      catTemperament.textContent = `Temperament: ${firstBreed.temperament}`;
-      catImage.src = cat.url;
+  showLoader();
+  hideElements();
 
-      catInfo.style.display = 'block';
-      loader.style.display = 'none';
+  fetchCatByBreed(selectedValue)
+    .then(data => {
+      const markupInfo = createMarkupInfo(data);
+      catInfo.innerHTML = markupInfo;
+      hideLoader();
+      showElements();
     })
-    .catch(() => {
-      showError();
-      loader.style.display = 'none';
+    .catch(err => {
+      Notiflix.Report.failure('Oops! Something went wrong! Try reloading the page!');
+      showElements();
+      hideLoader();
+    })
+    .finally(() => {
+      if (!fetchCatByBreed().catch) {
+        errorN();
+        showElements();
+      }
     });
 }
 
-function showError() {
-  Notiflix.Notify.Failure('An error occurred. Please try again.');
+function createMarkup(breeds) {
+  return breeds
+    .map(breed => `<option value="${breed.id}">${breed.name}</option>`)
+    .join('');
 }
 
+function createMarkupInfo(breeds) {
+  return breeds
+    .map(
+      breed => `
+      <img class="img" src="${breed.url}" alt="${breed.name}">
+      <ul class="item">
+        <li class="item-breed"><span class="span">Name:</span> ${breed.breeds[0].name}</li>
+        <li class="item-breed"><span class="span">Description:</span> ${breed.breeds[0].description}</li>
+        <li class="item-breed"><span class="span">Temperament:</span> ${breed.breeds[0].temperament}</li>
+      </ul>`
+    )
+    .join('');
+}
 
+select.addEventListener('change', fetchCatBySelectedBreed);
 
-loader.style.display = 'block';
-populateBreeds();
+// Initial setup
+function initializeApp() {
+  showLoader();
+  fetchBreedsData();
+}
+
+initializeApp();
