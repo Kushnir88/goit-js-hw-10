@@ -16,7 +16,7 @@ body {
   margin-left: auto;
   margin-right: auto;
   border: 16px solid #f3f3f3;
-  border-top: 16px solid #3498db;
+  border-top: 16px solid tomato;
   border-radius: 50%;
   width: 120px;
   height: 120px;
@@ -39,7 +39,8 @@ body {
 }
 
 .cat-info {
-  display: none;
+  display: block;
+
 }
 
 .item {
@@ -51,8 +52,9 @@ body {
 .item-breed {
   margin-bottom: 10px;
   font-weight: 500;
-  font-size: 22px;
+  font-size: 22x;
   line-height: 1.5;
+  max-width: 550;
 }
 
 .span {
@@ -62,7 +64,7 @@ body {
 .img {
   display: block;
   max-width: 30%;
-  height: auto;
+  height: 30%;
   margin-bottom: 10px;
   margin-top: 10px;
 }

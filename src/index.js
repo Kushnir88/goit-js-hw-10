@@ -27,8 +27,18 @@ function showElements() {
   select.style.display = 'block';
   catInfo.style.display = 'block';
 }
+reloadF();
+function reloadF() {
+  Notiflix.Loading.standard(`${load.textContent}`);
+}
 
-function fetchBreedsData() {
+Notiflix.Loading.remove(1000);
+const timeout = setTimeout(() => {
+  fetch();
+  showElements();
+}, 1200);
+
+function fetch() {
   fetchBreeds()
     .then(data => {
       const markup = createMarkup(data);
@@ -36,17 +46,17 @@ function fetchBreedsData() {
     })
     .catch(err => {
       hideElements();
-      Notiflix.Report.failure('Oops! Something went wrong! Try reloading the page!');
+      Notiflix.Report.failure(
+        'Oops! Something went wrong! Try reloading the page!'
+      );
     });
 }
 
-function fetchCatBySelectedBreed() {
+select.addEventListener('change', () => {
   const selectedOption = select.options[select.selectedIndex];
   const selectedValue = selectedOption.value;
-
   showLoader();
   hideElements();
-
   fetchCatByBreed(selectedValue)
     .then(data => {
       const markupInfo = createMarkupInfo(data);
@@ -55,7 +65,9 @@ function fetchCatBySelectedBreed() {
       showElements();
     })
     .catch(err => {
-      Notiflix.Report.failure('Oops! Something went wrong! Try reloading the page!');
+      Notiflix.Report.failure(
+        'Oops! Something went wrong! Try reloading the page!'
+      );
       showElements();
       hideLoader();
     })
@@ -65,34 +77,26 @@ function fetchCatBySelectedBreed() {
         showElements();
       }
     });
-}
+});
 
-function createMarkup(breeds) {
-  return breeds
-    .map(breed => `<option value="${breed.id}">${breed.name}</option>`)
-    .join('');
-}
-
-function createMarkupInfo(breeds) {
-  return breeds
+function createMarkup(arr) {
+  return arr
     .map(
-      breed => `
-      <img class="img" src="${breed.url}" alt="${breed.name}">
-      <ul class="item">
-        <li class="item-breed"><span class="span">Name:</span> ${breed.breeds[0].name}</li>
-        <li class="item-breed"><span class="span">Description:</span> ${breed.breeds[0].description}</li>
-        <li class="item-breed"><span class="span">Temperament:</span> ${breed.breeds[0].temperament}</li>
-      </ul>`
+      breed => `<option value="${breed.id}">${breed.name}</option>
+    `
     )
     .join('');
 }
 
-select.addEventListener('change', fetchCatBySelectedBreed);
-
-// Initial setup
-function initializeApp() {
-  showLoader();
-  fetchBreedsData();
+function createMarkupInfo(ar) {
+  return ar
+    .map(
+      breed => `<img class ="img" src="${breed.url}" alt="${breed.name}">
+    <ul class = "item">
+    <li class= "item-breed"><span class = "span">Name:</span> ${breed.breeds[0].name}</li>
+    <li class= "item-breed"><span class = "span">Description:</span> ${breed.breeds[0].description}</li>
+    <li class= "item-breed"><span class = "span">Temperament:</span>${breed.breeds[0].temperament}</li>
+    </ul>`
+    )
+    .join('');
 }
-
-initializeApp();
